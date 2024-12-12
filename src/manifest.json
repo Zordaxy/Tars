@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Tars",
+  "version": "0.1.0",
+  "description": "AI-powered Candidate Screening bot",
+  "permissions": ["activeTab", "storage", "scripting"],
+  "action": {
+    "default_popup": "popup/index.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://www.linkedin.com/*"],
+      "js": ["content-script/index.js"]
+    }
+  ]
+}
