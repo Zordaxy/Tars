@@ -13,7 +13,7 @@ Note: sometimes "node -v" shows 22 (latest) version. But under the hood it still
 
 ### IDE
 
-I user "VS Code", but it is optional
+I use "VS Code", but it is optional
 Recommended extensions:
 
 - ESLint
