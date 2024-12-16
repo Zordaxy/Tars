@@ -1,70 +1,74 @@
 import React, { useState, useEffect } from "react";
+import { callGPT4 } from "../content-script/openai";
 
 function App() {
   const [messages, setMessages] = useState([]);
   const [aiResponse, setAiResponse] = useState("");
   const [started, setStarted] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     if (!started) return;
-    console.log("started");
-    debugger;
 
-    // Request chat messages from content script
-    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-      if (tabs[0] && tabs[0].id) {
-        chrome.tabs.sendMessage(
-          tabs[0].id,
-          { type: "PARSE_CHAT" },
-          (response) => {
-            if (response && response.messages) {
-              setMessages(response.messages);
-            }
+    const fetchAndAnalyzeMessages = async () => {
+      setLoading(true);
+
+      try {
+        // Request chat messages from content script
+        chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+          if (tabs[0] && tabs[0].id) {
+            chrome.tabs.sendMessage(
+                tabs[0].id,
+                { type: "PARSE_CHAT" },
+                async (response) => {
+                  if (response && response.messages) {
+                    setMessages(response.messages);
+                    try {
+                      const gptResponse = await callGPT4(response.messages);
+                      setAiResponse(gptResponse);
+                    } catch (error) {
+                      setAiResponse(`Error: ${error.message}`);
+                    }
+                  }
+                  setLoading(false);
+                }
+            );
           }
-        );
-      }
-    });
-
-    // Listen for AI responses
-    const responseListener = (request) => {
-      if (request.type === "CHAT_PARSED") {
-        console.log("response", request.response);
-        setAiResponse(request.messages);
+        });
+      } catch (error) {
+        setAiResponse(`Error: ${error.message}`);
+        setLoading(false);
       }
     };
 
-    chrome.runtime.onMessage.addListener(responseListener);
+    fetchAndAnalyzeMessages();
+    const interval = setInterval(fetchAndAnalyzeMessages, 5000);
 
-    return () => {
-      chrome.runtime.onMessage.removeListener(responseListener);
-    };
+    return () => clearInterval(interval);
   }, [started]);
 
-  function handleStart() {
-    setStarted(true);
-    console.log("handle start");
-  }
-
   return (
-    <div style={{ width: "300px", padding: "10px" }}>
-      <h2>TARS (LinkedIn candidate screening chat bot)</h2>
-      <button onClick={() => handleStart()}>Start bot</button>
-      <br />
-      <ul>
-        {aiResponse &&
-          aiResponse.map((x) => (
-            <li
-              style={{
-                marginTop: "10px",
-                padding: "5px",
-                backgroundColor: "#e6ffe6",
-              }}
-            >
-              {x.text}
-            </li>
-          ))}
-      </ul>
-    </div>
+      <div style={{ width: "300px", padding: "10px" }}>
+        <h2>TARS (LinkedIn candidate screening chat bot)</h2>
+        <button
+            onClick={() => setStarted(true)}
+            disabled={loading}
+            style={{ marginBottom: "10px" }}
+        >
+          {loading ? 'Processing...' : 'Start bot'}
+        </button>
+        <div
+            style={{
+              marginTop: "10px",
+              padding: "10px",
+              backgroundColor: "#e6ffe6",
+              borderRadius: "5px",
+              whiteSpace: "pre-wrap"
+            }}
+        >
+          {aiResponse}
+        </div>
+      </div>
   );
 }
 
