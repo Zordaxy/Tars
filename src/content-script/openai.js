@@ -13,7 +13,7 @@ export async function callGPT4(messages) {
         messages: [
           {
             role: 'system',
-            content: 'You are a helpful assistant resonding to LinkedIn messages on behalf of a the person receiving a certain LinkedIn message.'
+            content: 'You are a helpful assistant responding to LinkedIn messages on behalf of a the person receiving a certain LinkedIn message.'
                 + 'Answer any messages concisely, politely, and in a friendly tone.'
           },
           {
@@ -28,7 +28,7 @@ export async function callGPT4(messages) {
     if (data.error) {
       throw new Error(data.error.message);
     }
-    return data.choices[0].message.content;
+    return data.choices?.[0]?.message?.content;
   } catch (error) {
     console.error('OpenAI API Error:', error);
     throw error;
