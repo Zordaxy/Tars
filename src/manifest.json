@@ -10,7 +10,7 @@
   "content_scripts": [
     {
       "matches": ["*://www.linkedin.com/*"],
-      "js": ["content-script/index.js"]
+      "js": ["content-script/index.js", "content-script/openai.js"]
     }
   ]
 }
