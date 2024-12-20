@@ -60,19 +60,8 @@ function App() {
       try {
         await chrome.storage.local.set({ [PROFILE_MEMORY_KEY]: profileData });
         console.log("Profile data saved successfully");
-        try {
-          chrome.storage.local.get(PROFILE_MEMORY_KEY, (result) => {
-            if (result[PROFILE_MEMORY_KEY]) {
-              console.log("Profile data retrieved successfully:", result[PROFILE_MEMORY_KEY]);
-            }
-          });
-        } catch (error) {
-          console.error("Error retrieving profile data:", error);
-          setAiResponse(`Error retrieving profile data: ${error.message}`);
-        }
       } catch (error) {
         console.error("Error saving profile data:", error);
-        setAiResponse(`Error saving profile data: ${error.message}`);
       }
     };
 
@@ -89,7 +78,6 @@ function App() {
         chrome.storage.local.get(PROFILE_MEMORY_KEY, (result) => {
           if (chrome.runtime.lastError) {
             console.error("Error retrieving profile data:", chrome.runtime.lastError);
-            setAiResponse(`Error retrieving profile data: ${chrome.runtime.lastError.message}`);
             return;
           }
           if (result[PROFILE_MEMORY_KEY]) {
@@ -101,7 +89,6 @@ function App() {
         });
       } catch (error) {
         console.error("Error retrieving profile data:", error);
-        setAiResponse(`Error retrieving profile data: ${error.message}`);
       }
     }
     fetchProfileData();
