@@ -114,71 +114,68 @@ function App() {
     setIsModalOpen(false);
   };
 
-  return (
-      <div style={{width: "300px", padding: "10px"}}>
-        <h2>TARS (LinkedIn candidate screening chat bot)</h2>
-        <button
-            onClick={() => setStarted(true)}
-            disabled={loading}
-            style={{marginBottom: "10px"}}
-        >
-          {loading ? 'Processing...' : 'Start bot'}
-        </button>
-        <button
-          onClick={handleUpdateProfile}
-          style={{marginBottom: "10px", marginLeft: "10px"}}
-        >
-          Update profile
-        </button>
-        <div
-            style={{
-              marginTop: "10px",
-              padding: "10px",
-              backgroundColor: "#e6ffe6",
-              borderRadius: "5px",
-              whiteSpace: "pre-wrap"
-            }}
-        >
-          {aiResponse}
-        </div>
+  return (<div style={{width: "300px", padding: "10px"}}>
+    <h2>TARS (LinkedIn candidate screening chat bot)</h2>
+    <button
+        onClick={() => setStarted(true)}
+        disabled={loading}
+        style={{marginBottom: "10px"}}
+    >
+      {loading ? 'Processing...' : 'Start bot'}
+    </button>
+    <button
+        onClick={handleUpdateProfile}
+        style={{marginBottom: "10px", marginLeft: "10px"}}
+    >
+      Add/Update profile
+    </button>
+    <button
+        onClick={() => setStarted(false)}
+        style={{marginBottom: "10px", marginLeft: "10px"}}
+    >
+      Stop bot
+    </button>
+    <div
+        style={{
+          marginTop: "10px", padding: "10px", backgroundColor: "#e6ffe6", borderRadius: "5px", whiteSpace: "pre-wrap"
+        }}
+    >
+      {aiResponse}
+    </div>
 
-        {isModalOpen && (
-          <div style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            backgroundColor: "white",
-            padding: "20px",
-            boxShadow: "0 0 10px rgba(0,0,0,0.1)",
-            zIndex: 1000
-          }}>
-            <h3>Update Profile</h3>
-            <textarea
+    {isModalOpen && (<div style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          backgroundColor: "white",
+          padding: "20px",
+          boxShadow: "0 0 10px rgba(0,0,0,0.1)",
+          zIndex: 1000
+        }}>
+          <h3>Update Profile</h3>
+          <textarea
               value={modalInput}
               onChange={(e) => setModalInput(e.target.value)}
               style={{width: "100%", height: "100px"}}
-            />
-            <button onClick={handleModalSubmit} style={{marginTop: "10px"}}>
-              Save
-            </button>
-            <button onClick={() => setIsModalOpen(false)} style={{marginTop: "10px", marginLeft: "10px"}}>
-              Cancel
-            </button>
-          </div>
-        )}
-        {isModalOpen && (
-          <div style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(0,0,0,0.5)",
-            zIndex: 999
-          }} onClick={() => setIsModalOpen(false)} />
-        )}
-      </div>);
+          />
+          <button onClick={handleModalSubmit} style={{marginTop: "10px"}}>
+            Save
+          </button>
+          <button onClick={() => setIsModalOpen(false)} style={{marginTop: "10px", marginLeft: "10px"}}>
+            Cancel
+          </button>
+        </div>)}
+    {isModalOpen && (<div style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(0,0,0,0.5)",
+          zIndex: 999
+        }} onClick={() => setIsModalOpen(false)}/>)}
+  </div>);
 }
 
 export default App;
