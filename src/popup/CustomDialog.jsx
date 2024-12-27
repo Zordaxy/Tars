@@ -58,6 +58,7 @@ export default function CustomDialog() {
             label="Additional Info"
             fullWidth
             variant="standard"
+            multiline
           />
         </DialogContent>
         <DialogActions>
