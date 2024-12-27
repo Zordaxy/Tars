@@ -1,7 +1,7 @@
-function showModal(header, callback) {
+function showModal(title, header, callback) {
   if (!callback) return;
 
-  window.openDialog?.(header);
+  window.openDialog?.(title, header);
   window.onDialogSubmit = callback;
 }
 

@@ -12,7 +12,6 @@ function App() {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "AI_RESPONSE") {
       console.log(message?.input);
-      debugger;
       alert(message?.input);
     }
   });
@@ -25,7 +24,11 @@ function App() {
 
       try {
         const response = await sendMessageToContentScript("PARSE_CHAT");
-        setAiResponse(response?.gptResponse || "");
+        if (response.error) {
+          setAiResponse(`Error: ${response.error}`);
+        } else {
+          setAiResponse(response?.gptResponse || "");
+        }
         setLoading(false);
       } catch (error) {
         setAiResponse(`Error: ${error.message}`);
@@ -40,29 +43,29 @@ function App() {
   }, [started]);
 
   return (
-    <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
-      <h2>TARS (LinkedIn candidate screening chat bot)</h2>
+      <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
+        <h2>TARS (LinkedIn candidate screening chat bot)</h2>
 
-      <NavBar
-        setStarted={setStarted}
-        setIsModalOpen={setIsModalOpen}
-        loading={loading}
-      />
+        <NavBar
+            setStarted={setStarted}
+            setIsModalOpen={setIsModalOpen}
+            loading={loading}
+        />
 
-      <div
-        style={{
-          marginTop: "10px",
-          padding: "10px",
-          backgroundColor: "#e6ffe6",
-          borderRadius: "5px",
-          whiteSpace: "pre-wrap",
-        }}
-      >
-        {aiResponse}
+        <div
+            style={{
+              marginTop: "10px",
+              padding: "10px",
+              backgroundColor: "#e6ffe6",
+              borderRadius: "5px",
+              whiteSpace: "pre-wrap",
+            }}
+        >
+          {aiResponse}
+        </div>
+
+        {isModalOpen && <ProfileData setIsModalOpen={setIsModalOpen} />}
       </div>
-
-      {isModalOpen && <ProfileData setIsModalOpen={setIsModalOpen} />}
-    </div>
   );
 }
 

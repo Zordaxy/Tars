@@ -1,9 +1,7 @@
 import { PROFILE_MEMORY_KEY, OPENAI_API_KEY } from "../utils/constants";
 
-export async function callGPT4(messages) {
+export async function callGPT4(messages, profileData) {
   try {
-    const storageData = await chrome.storage.local.get(PROFILE_MEMORY_KEY);
-    const profileData = storageData?.[PROFILE_MEMORY_KEY] || "";
     const content =
         "You are a helpful assistant responding to a LinkedIn message from a recruiter on behalf of a the person (candidate) receiving a certain LinkedIn message. " +
         "Answer any messages concisely, politely, and in a friendly tone. " +
@@ -26,6 +24,7 @@ export async function callGPT4(messages) {
         "Important rules: \n" +
         " - When in doubt, it's better to ask the user to provide more info (eg. ASK_PRIVATE_CANDIDATE_INFO) or to double check your answer (REVIEW_DRAFTED_RESPONSE)" +
         " - Never decline to learn more about an opportunity unless you have explicit instructions to do so." +
+        " - Be consise and to the point." +
         "Use this profile_data on the user to help formulate your answers: " +
         `${profileData}`;
 
@@ -55,7 +54,54 @@ export async function callGPT4(messages) {
     if (data.error) {
       throw new Error(data.error.message);
     }
-    return data.choices?.[0]?.message?.content;
+    const gptMessage = JSON.parse(data.choices?.[0]?.message?.content);
+    return { keyword: gptMessage.keyword, content: gptMessage.content };
+  } catch (error) {
+    console.error("OpenAI API Error:", error);
+    throw error;
+  }
+}
+
+export async function preprocessText(rawText) {
+  try {
+    const prompt = `
+      You receive some raw conversation information between an AI assistant and a candidate. You should summarize the information coming from the candidate in a way that creates stand-alone knowledge bits that can be stored for later consumption.
+
+      For example, if the conversation is:
+      AI: Are you looking for a job now?
+      Candidate: Yes, but only in ML.
+
+      Then Your response should be:
+      'Currently looking for a job, but only in ML'
+    `;
+
+    const response = await fetch("https://api.openai.com/v1/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${OPENAI_API_KEY}`,
+      },
+      body: JSON.stringify({
+        model: "gpt-4o",
+        temperature: 0,
+        messages: [
+          {
+            role: "system",
+            content: prompt,
+          },
+          {
+            role: "user",
+            content: rawText,
+          },
+        ],
+      }),
+    });
+
+    const data = await response.json();
+    if (data.error) {
+      throw new Error(data.error.message);
+    }
+    return data.choices?.[0]?.message?.content.trim();
   } catch (error) {
     console.error("OpenAI API Error:", error);
     throw error;

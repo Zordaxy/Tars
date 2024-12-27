@@ -10,7 +10,7 @@ import styled from "styled-components";
 import { useDialog } from "../content-script/dialogContext";
 
 export default function CustomDialog() {
-  const { open, dialogHeader, closeDialog } = useDialog();
+  const { open, dialogTitle, dialogHeader, closeDialog } = useDialog();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,35 +37,35 @@ export default function CustomDialog() {
   }));
 
   return (
-    <React.Fragment>
-      <Dialog
-        open={open}
-        onClose={closeDialog}
-        PaperProps={{
-          component: "form",
-          onSubmit: handleSubmit,
-        }}
-      >
-        <DialogTitle>Message from your chat bot</DialogTitle>
-        <DialogContent>
-          <DialogContentText> {dialogHeader}</DialogContentText>
-          <CustomTextField
-            autoFocus
-            required
-            margin="dense"
-            id="info"
-            name="info"
-            label="Additional Info"
-            fullWidth
-            variant="standard"
-            multiline
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={closeDialog}>Cancel</Button>
-          <Button type="submit">Submit</Button>
-        </DialogActions>
-      </Dialog>
-    </React.Fragment>
+      <React.Fragment>
+        <Dialog
+            open={open}
+            onClose={closeDialog}
+            PaperProps={{
+              component: "form",
+              onSubmit: handleSubmit,
+            }}
+        >
+          <DialogTitle>{dialogTitle}</DialogTitle>
+          <DialogContent>
+            <DialogContentText> {dialogHeader}</DialogContentText>
+            <CustomTextField
+                autoFocus
+                required
+                margin="dense"
+                id="info"
+                name="info"
+                label="Additional Info"
+                fullWidth
+                variant="standard"
+                multiline
+            />
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={closeDialog}>Cancel</Button>
+            <Button type="submit">Submit</Button>
+          </DialogActions>
+        </Dialog>
+      </React.Fragment>
   );
 }

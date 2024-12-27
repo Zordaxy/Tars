@@ -4,17 +4,18 @@ const DialogContext = createContext();
 
 export const DialogProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
+  const [dialogTitle, setDialogTitle] = useState("");
   const [dialogHeader, setDialogHeader] = useState("");
 
-  const openDialog = (header) => {
-    debugger;
+  const openDialog = (title, header) => {
     if (window.isDialogOpened) {
       console.log("Opened: ", window.isDialogOpened);
-      const error = "Attempting to opem modal dialog, but it is already opened";
+      const error = "Attempting to open modal dialog, but it is already opened";
       console.error(error);
       return;
     }
     console.log("Opened: ", open);
+    setDialogTitle(title);
     setDialogHeader(header);
     setOpen(true);
     window.isDialogOpened = true;
@@ -22,6 +23,7 @@ export const DialogProvider = ({ children }) => {
 
   const closeDialog = () => {
     setOpen(false);
+    setDialogTitle(""); // Reset title on close
     setDialogHeader(""); // Reset content on close
     window.isDialogOpened = false;
   };
@@ -32,11 +34,11 @@ export const DialogProvider = ({ children }) => {
   }, []);
 
   return (
-    <DialogContext.Provider
-      value={{ open, dialogHeader, openDialog, closeDialog }}
-    >
-      {children}
-    </DialogContext.Provider>
+      <DialogContext.Provider
+          value={{ open, dialogTitle, dialogHeader, openDialog, closeDialog }}
+      >
+        {children}
+      </DialogContext.Provider>
   );
 };
 
