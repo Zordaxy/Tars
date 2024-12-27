@@ -9,6 +9,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (message.type === "AI_RESPONSE") {
+      console.log(message?.input);
+      debugger;
+      alert(message?.input);
+    }
+  });
+
   useEffect(() => {
     if (!started) return;
 
