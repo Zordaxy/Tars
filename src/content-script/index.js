@@ -1,12 +1,28 @@
 import { parseLinkedInChat } from "../utils/chatParser.js";
+import initContent from "./initContent.jsx";
+import init from "./initContent.jsx";
 import { callGPT4 } from "./openai.js";
+import showModal from "../utils/showModal.js";
+import updateChatInput from "../utils/updateChatInput.js";
 
 // Listen for messages from background script
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   if (request.type === "PARSE_CHAT") {
+    showModal(
+      "Provide additional information that is not available in LinkedIn profile",
+      (input) => {
+        console.log("User input inside content script:", input);
+
+        // Call AI to handle user input.
+        // Then update chat input:
+        updateChatInput(input);
+      }
+    );
+
     console.log("PARSE_CHAT");
     const messages = parseLinkedInChat();
 
+    init();
     if (messages) {
       callGPT4(messages).then((gptResponse) => sendResponse({ gptResponse }));
     } else {
@@ -16,15 +32,5 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
   return true;
 });
 
-// Utility function to send parsed messages
-function sendParsedMessages() {
-  console.log("send PARSE_CHAT");
-  const messages = parseLinkedInChat();
-  chrome.runtime.sendMessage({
-    type: "CHAT_PARSED",
-    messages,
-  });
-}
-
-// Periodic message parsing
-setInterval(sendParsedMessages, 5000);
+// Initialize React on page
+initContent();

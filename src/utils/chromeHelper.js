@@ -9,9 +9,13 @@ export const sendMessageToContentScript = (messageType) => {
             if (chrome.runtime.lastError) {
               console.error(
                 "Error sending message to content script:",
-                chrome.runtime.lastError
+                chrome.runtime.lastError?.message
               );
-              reject(new Error("Failed to send message to content script"));
+              reject(
+                new Error(
+                  `Failed to send message to content script: ${chrome.runtime.lastError?.message}`
+                )
+              );
             } else {
               console.log("Received response:", response);
               resolve(response);
