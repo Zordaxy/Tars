@@ -12,7 +12,6 @@ function App() {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "AI_RESPONSE") {
       console.log(message?.input);
-      debugger;
       alert(message?.input);
     }
   });

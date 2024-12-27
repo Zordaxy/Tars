@@ -7,7 +7,6 @@ export const DialogProvider = ({ children }) => {
   const [dialogHeader, setDialogHeader] = useState("");
 
   const openDialog = (header) => {
-    debugger;
     if (window.isDialogOpened) {
       console.log("Opened: ", window.isDialogOpened);
       const error = "Attempting to opem modal dialog, but it is already opened";
