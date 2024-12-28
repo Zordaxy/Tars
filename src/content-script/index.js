@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               content,
               async (input) => {
                 console.log("User input inside content script:", input);
-                const processedText = await preprocessText(input);
+                const processedText = await preprocessText("AI: " + content + "Candidate:" + input);
                 const updatedProfileData = profileData + "\n" + processedText;
                 await chrome.storage.local.set({ [PROFILE_MEMORY_KEY]: updatedProfileData });
                 handleGPTResponse(updatedProfileData);
