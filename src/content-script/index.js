@@ -1,7 +1,7 @@
 import { parseLinkedInChat } from "../utils/chatParser.js";
 import initContent from "./initContent.jsx";
 import init from "./initContent.jsx";
-import { callGPT4, preprocessText } from "./openai.js";
+import { mainGPTcall, summarizeLearnings } from "./openai.js";
 import showModal from "../utils/showModal.js";
 import updateChatInput from "../utils/updateChatInput.js";
 import { PROFILE_MEMORY_KEY } from "../utils/constants";
@@ -14,7 +14,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     init();
     if (messages) {
       const handleGPTResponse = async (profileData) => {
-        const { keyword, content } = await callGPT4(messages, profileData);
+        const { keyword, content } = await mainGPTcall(messages, profileData);
         let title = "Message from your chat bot";
         if (keyword === "ASK_TO_UPDATE_CANDIDATE_PROFILE" || keyword === "ASK_PRIVATE_CANDIDATE_INFO") {
           title = "Provide Additional Information";
@@ -23,7 +23,7 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
               content,
               async (input) => {
                 console.log("User input inside content script:", input);
-                const processedText = await preprocessText("AI: " + content + "Candidate:" + input);
+                const processedText = await summarizeLearnings("AI: " + content + "Candidate:" + input);
                 const updatedProfileData = profileData + "\n" + processedText;
                 await chrome.storage.local.set({ [PROFILE_MEMORY_KEY]: updatedProfileData });
                 handleGPTResponse(updatedProfileData);
