@@ -11,7 +11,6 @@ function App() {
 
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "AI_RESPONSE") {
-      console.log(message?.input);
       alert(message?.input);
     }
   });
@@ -43,15 +42,15 @@ function App() {
   }, [started]);
 
   return (
-      <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
-        <h2>TARS (LinkedIn candidate screening chat bot)</h2>
+    <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
+      <h2>TARS (LinkedIn candidate screening chat bot)</h2>
 
-        <NavBar
-            setStarted={setStarted}
-            setIsModalOpen={setIsModalOpen}
-            loading={loading}
-        />
-
+      <NavBar
+        setStarted={setStarted}
+        setIsModalOpen={setIsModalOpen}
+        loading={loading}
+      />
+      {/* 
         <div
             style={{
               marginTop: "10px",
@@ -64,8 +63,8 @@ function App() {
           {aiResponse}
         </div>
 
-        {isModalOpen && <ProfileData setIsModalOpen={setIsModalOpen} />}
-      </div>
+        {isModalOpen && <ProfileData setIsModalOpen={setIsModalOpen} />} */}
+    </div>
   );
 }
 

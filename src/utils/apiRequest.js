@@ -1,12 +1,10 @@
-import { OPENAI_API_KEY } from "../utils/constants";
-
 export async function apiRequest(prompt, content) {
   try {
     const response = await fetch("https://api.openai.com/v1/chat/completions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Bearer ${OPENAI_API_KEY}`,
+        Authorization: `Bearer ${localStorage.getItem("openAiKey")}`,
       },
       body: JSON.stringify({
         model: "gpt-4o",

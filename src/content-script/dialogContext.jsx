@@ -2,22 +2,27 @@ import React, { createContext, useState, useContext, useEffect } from "react";
 
 const DialogContext = createContext();
 
+export const DIALOG_TYPE = {
+  INITIAL: "INITIAL",
+  FEEDBACK: "FEEDBACK",
+};
+
 export const DialogProvider = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [dialogTitle, setDialogTitle] = useState("");
   const [dialogHeader, setDialogHeader] = useState("");
+  const [dialogType, setDialogType] = useState(DIALOG_TYPE.FEEDBACK);
 
-  const openDialog = (title, header) => {
+  const openDialog = (type = DIALOG_TYPE.FEEDBACK, title, header) => {
     if (window.isDialogOpened) {
-      console.log("Opened: ", window.isDialogOpened);
       const error = "Attempting to open modal dialog, but it is already opened";
       console.error(error);
       return;
     }
-    console.log("Opened: ", open);
     setDialogTitle(title);
     setDialogHeader(header);
     setOpen(true);
+    setDialogType(type);
     window.isDialogOpened = true;
   };
 
@@ -34,11 +39,18 @@ export const DialogProvider = ({ children }) => {
   }, []);
 
   return (
-      <DialogContext.Provider
-          value={{ open, dialogTitle, dialogHeader, openDialog, closeDialog }}
-      >
-        {children}
-      </DialogContext.Provider>
+    <DialogContext.Provider
+      value={{
+        open,
+        dialogTitle,
+        dialogHeader,
+        openDialog,
+        closeDialog,
+        dialogType,
+      }}
+    >
+      {children}
+    </DialogContext.Provider>
   );
 };
 

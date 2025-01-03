@@ -1,7 +1,7 @@
 import React from "react";
 import { createRoot } from "react-dom/client";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import CustomDialog from "../popup/CustomDialog";
+import CustomDialog from "../popup/dialog/CustomDialog";
 import { DialogProvider } from "./dialogContext";
 
 const theme = createTheme({
@@ -16,6 +16,9 @@ const theme = createTheme({
             fontSize: "22px",
           },
           "& .MuiDialogContentText-root": {
+            fontSize: "17px",
+          },
+          "& .MuiTextField-root": {
             fontSize: "17px",
           },
         },
