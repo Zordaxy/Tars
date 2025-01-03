@@ -8,12 +8,12 @@ function NavBar({ setStarted, setIsModalOpen, loading }) {
       >
         {loading ? "Processing..." : "Start bot"}
       </button>
-      <button
+      {/* <button
         onClick={() => setIsModalOpen(true)}
         style={{ marginBottom: "10px", flexGrow: 1 }}
       >
         Set profile
-      </button>
+      </button> */}
       <button
         onClick={() => setStarted(false)}
         style={{ marginBottom: "10px", flexGrow: 1 }}

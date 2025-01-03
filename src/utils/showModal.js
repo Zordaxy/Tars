@@ -1,7 +1,9 @@
-function showModal(title, contentText, callback) {
+import { DIALOG_TYPE } from "../content-script/dialogContext";
+
+function showModal(title, contentText, callback, type = DIALOG_TYPE.FEEDBACK) {
   if (!callback) return;
 
-  window.openDialog?.(title, contentText);
+  window.openDialog?.(type, title, contentText);
   window.onDialogSubmit = callback;
 }
 
