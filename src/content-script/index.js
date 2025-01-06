@@ -65,6 +65,18 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       sendResponse({ error: "Message is empty" });
     }
   }
+
+  if (request.type === "READ_STORAGE") {
+    const value = localStorage.getItem(request.data);
+    sendResponse({ value });
+  }
+
+  if (request.type === "UPDATE_STORAGE") {
+    Object.entries(request.data).forEach(([key, value]) => {
+      localStorage.setItem(key, value);
+    });
+  }
+
   return true;
 });
 

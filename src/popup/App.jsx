@@ -18,8 +18,15 @@ function App() {
   });
 
   useEffect(() => {
-    const x = localStorage.getItem("immediateAnswer");
-    setImmediateAnswer(x === "true");
+    const getImmediateAnswer = async () => {
+      const x = await sendMessageToContentScript(
+        "READ_STORAGE",
+        "immediateAnswer"
+      );
+      setImmediateAnswer(x?.value === "true");
+    };
+
+    getImmediateAnswer();
   }, []);
 
   useEffect(() => {
@@ -50,7 +57,9 @@ function App() {
 
   const handleAnswerCheckbox = (event) => {
     setImmediateAnswer(event.target.checked);
-    localStorage.setItem("immediateAnswer", event.target.checked);
+    const x = sendMessageToContentScript("UPDATE_STORAGE", {
+      immediateAnswer: event.target.checked,
+    });
   };
   return (
     <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
