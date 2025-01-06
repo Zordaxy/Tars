@@ -13,6 +13,9 @@ function updateChatInput(message) {
   document
     .querySelector(".msg-form__placeholder")
     ?.classList?.remove("msg-form__placeholder");
+
+  const event = new Event("input", { bubbles: true, cancelable: true });
+  inputElement.dispatchEvent(event);
 }
 
 export default updateChatInput;
