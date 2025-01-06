@@ -63,7 +63,7 @@ function App() {
   };
   return (
     <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
-      <h2>TARS (LinkedIn candidate screening chat bot)</h2>
+      <h2>TARS (Digital Double for Screening)</h2>
 
       <NavBar
         setStarted={setStarted}
