@@ -2,11 +2,11 @@ export default {
   questions: [
     {
       id: 0,
-      text: "Are you looking for a job now?",
+      text: "Are you active looking for a job now?",
     },
     {
       id: 1,
-      text: "What is your favorite food?",
+      text: "If so, what job titles or roles are you interested in?",
     },
   ],
 };
