@@ -1,11 +1,11 @@
 export default {
   questions: [
     {
-      id: 0,
-      text: "Are you active looking for a job now?",
+      id: "Are you interested in a new job now?",
+      text: "Are you interested in a new job now?",
     },
     {
-      id: 1,
+      id: "If so, what job titles or roles are you interested in?",
       text: "If so, what job titles or roles are you interested in?",
     },
   ],

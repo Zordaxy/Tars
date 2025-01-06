@@ -16,20 +16,34 @@ export default class Messenger {
 
   checkForMessage() {
     this.messages = parseLinkedInChat();
-    console.log("Bot pulse. Nunber of messages: ", this.messages.length);
+    console.log("Bot pulse. Number of messages: ", this.messages.length);
+
+    // if (this.messages.length > this.currentMessageCount) {
+    //   const newMessage = `There is ${this.messages.length -
+    //     this.currentMessageCount} new message(s). Response to: ${this.messages[
+    //     this.messages.length - 1
+    //   ]?.text.trim()}`;
+    //   this.currentMessageCount = this.messages.length;
+    //
+    //   // Replace with handleMessages that is commented out below
+    //   updateChatInput(newMessage);
+    //   triggerMessage();
+    //
+    //   handleMessages(this.messages, this.sendResponse);
+    // }
 
     if (this.messages.length > this.currentMessageCount) {
-      const newMessage = `There is ${this.messages.length -
-        this.currentMessageCount} new message(s). Response to: ${this.messages[
-        this.messages.length - 1
-      ]?.text.trim()}`;
       this.currentMessageCount = this.messages.length;
 
-      // Replace with handleMessages that is commented out below
-      updateChatInput(newMessage);
-      triggerMessage();
-
-      handleMessages(this.messages, this.sendResponse);
+      handleMessages(this.messages, (response) => {
+        if (response.error) {
+          console.error("Error handling GPT response:", response.error);
+        } else {
+          const { content } = response;
+          updateChatInput(content);
+          triggerMessage();
+        }
+      });
     }
   }
 }
