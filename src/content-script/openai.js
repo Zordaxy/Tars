@@ -1,19 +1,18 @@
-import { PROFILE_MEMORY_KEY } from "../utils/constants";
 import mainPrompt from "../prompts/mainPrompt.js";
 import summarizeLearningsPrompt from "../prompts/summarizeLearningsPrompt.js";
 import { apiRequest } from "../utils/apiRequest";
 
-export async function mainGPTcall(messages, profileData) {
+export async function mainGPTcall(messages, info) {
   try {
     // Retrieve answers from localStorage
     const answers = JSON.parse(localStorage.getItem("answers")) || [];
     const answersText = answers.map(answer => `${answer.id}: ${answer.answer}`).join("\n");
 
-    // Concatenate profileData with answers
-    const combinedProfileData = `${profileData}\n${answersText}`;
+    // Concatenate info with answers
+    const combinedInfo = `${answersText}\n${info}`;
 
     const userMessages = messages.map((m) => m.text).join("\n");
-    const prompt = mainPrompt(combinedProfileData, userMessages);
+    const prompt = mainPrompt(combinedInfo, userMessages);
     const rawResponse = await apiRequest(prompt, "");
     const cleanedResponse = rawResponse.replace(/```json|```/g, '').trim();
     try {
