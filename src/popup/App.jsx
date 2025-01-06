@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { sendMessageToContentScript } from "../utils/chromeHelper";
-import ProfileData from "./ProfileData";
 import NavBar from "./NavBar";
 import { Checkbox, FormControlLabel } from "@mui/material";
 
+/**
+ * Popup component
+ * Starts/spops bot and defines basic settings.
+ * All the main logic happens in content script.
+ */
 function App() {
   const [aiResponse, setAiResponse] = useState("");
-  const [started, setStarted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [immediateAnswer, setImmediateAnswer] = useState(false);
@@ -29,44 +32,45 @@ function App() {
     getImmediateAnswer();
   }, []);
 
-  useEffect(() => {
-    if (!started) return;
+  /**
+   * Starts bot
+   */
+  async function startBot() {
+    setLoading(true);
 
-    const fetchAndAnalyzeMessages = async () => {
-      setLoading(true);
+    try {
+      const response = await sendMessageToContentScript("PARSE_CHAT");
+      setLoading(false);
+    } catch (error) {
+      setLoading(false);
+    }
+  }
 
-      try {
-        const response = await sendMessageToContentScript("PARSE_CHAT");
-        if (response.error) {
-          setAiResponse(`Error: ${response.error}`);
-        } else {
-          setAiResponse(response?.gptResponse || "");
-        }
-        setLoading(false);
-      } catch (error) {
-        setAiResponse(`Error: ${error.message}`);
-        setLoading(false);
-      }
-    };
+  /**
+   * Stops bot
+   */
+  function stopBot() {
+    sendMessageToContentScript("STOP_CHAT");
+  }
 
-    fetchAndAnalyzeMessages();
-    const interval = setInterval(fetchAndAnalyzeMessages, 5000);
-
-    return () => clearInterval(interval);
-  }, [started]);
-
+  /**
+   * Handle checkbox change that defines if bot should answer instantly
+   * @param {*} event
+   */
   const handleAnswerCheckbox = (event) => {
     setImmediateAnswer(event.target.checked);
     const x = sendMessageToContentScript("UPDATE_STORAGE", {
       immediateAnswer: event.target.checked,
     });
   };
+
   return (
     <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
       <h2>TARS (Digital Double for Screening)</h2>
 
       <NavBar
-        setStarted={setStarted}
+        startBot={startBot}
+        stopBot={stopBot}
         setIsModalOpen={setIsModalOpen}
         loading={loading}
       />
@@ -76,20 +80,6 @@ function App() {
         }
         label="Answer instantly"
       />
-      {/* 
-        <div
-            style={{
-              marginTop: "10px",
-              padding: "10px",
-              backgroundColor: "#e6ffe6",
-              borderRadius: "5px",
-              whiteSpace: "pre-wrap",
-            }}
-        >
-          {aiResponse}
-        </div>
-
-        {isModalOpen && <ProfileData setIsModalOpen={setIsModalOpen} />} */}
     </div>
   );
 }

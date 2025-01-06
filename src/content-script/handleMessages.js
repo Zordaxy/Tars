@@ -4,9 +4,13 @@ import triggerMessage from "../utils/triggerMessage";
 import updateChatInput from "../utils/updateChatInput";
 import { mainGPTcall, summarizeLearnings } from "./openai";
 
+/**
+ * Prepares data and triggers handleGPTResponse - main IA handling function
+ * @param {*} messages
+ * @param {*} sendResponse
+ */
 export default function handleMessages(messages, sendResponse) {
   if (messages) {
-    console.log("handleMessages triggered");
     chrome.storage.local.get(PROFILE_MEMORY_KEY, (result) => {
       const profileData = result?.[PROFILE_MEMORY_KEY] || "";
       handleGPTResponse(messages, profileData, sendResponse).catch((error) => {
@@ -20,6 +24,12 @@ export default function handleMessages(messages, sendResponse) {
   }
 }
 
+/**
+ * Main GPT response handling function
+ * @param {*} messages
+ * @param {*} profileData
+ * @param {*} sendResponse
+ */
 async function handleGPTResponse(messages, profileData, sendResponse) {
   console.log("handleGPTResponse triggered");
 
