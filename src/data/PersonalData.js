@@ -2,15 +2,11 @@ export default {
   questions: [
     {
       id: "openAiKey",
-      text: "Open AI Key",
+      text: "OpenAI API Key",
     },
     {
       id: "liProfile",
-      text: "LinkedIn profile URL",
-    },
-    {
-      id: "privateInfo",
-      text: "LinkedIn profile URL",
-    },
+      text: "LinkedIn Profile URL",
+    }
   ],
 };

@@ -42,7 +42,7 @@ export default function FeedbackRequest() {
         margin="dense"
         id="info"
         name="info"
-        label="Additional Info"
+        label="Additional Private Info"
         fullWidth
         variant="standard"
         defaultValue={localStorage.getItem("info") || ""}
