@@ -31,7 +31,7 @@ async function handleGPTResponse(messages, info, sendResponse) {
   console.log("handleGPTResponse triggered");
 
   const { keyword, content } = await mainGPTcall(messages, info);
-  let title = "Message from your chat bot";
+  let title = "Message from TARS";
   if (
       keyword === "ASK_TO_UPDATE_CANDIDATE_PROFILE" ||
       keyword === "ASK_PRIVATE_CANDIDATE_INFO"
