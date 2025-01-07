@@ -8,5 +8,9 @@ export default {
       id: "If so, what job titles or roles are you interested in?",
       text: "If so, what job titles or roles are you interested in?",
     },
+    {
+      id: "info",
+      text: "Additional Private Info",
+    }
   ],
 };

@@ -22,11 +22,12 @@ export default function FeedbackRequest() {
   return (
     <>
       <DialogContentText>
-        Let's clarify basic information about you.
+        Set up your account
       </DialogContentText>
 
       {getPersonalInfo().map((question) => (
         <CustomTextField
+          required
           id={question.id.toString()}
           name={question.id.toString()}
           label={question.text}
@@ -36,22 +37,12 @@ export default function FeedbackRequest() {
         />
       ))}
 
-      <CustomTextField
-        autoFocus
-        required
-        margin="dense"
-        id="info"
-        name="info"
-        label="Additional Private Info"
-        fullWidth
-        variant="standard"
-        defaultValue={localStorage.getItem("info") || ""}
-        multiline
-      />
+      {/* Add multiple empty lines */}
+      <br />
+      <br />
 
       <DialogContentText>
-        Can you help me to define understanding in basic questions once I start
-        dialog on screening?
+        Provide additional information
       </DialogContentText>
       {getQuestions().map((question) => (
         <CustomTextField
@@ -61,6 +52,7 @@ export default function FeedbackRequest() {
           defaultValue={question.answer}
           variant="standard"
           fullWidth
+          multiline
         />
       ))}
     </>
