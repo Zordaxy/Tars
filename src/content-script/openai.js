@@ -1,15 +1,17 @@
 import mainPrompt from "../prompts/mainPrompt.js";
 import summarizeLearningsPrompt from "../prompts/summarizeLearningsPrompt.js";
 import { apiRequest } from "../utils/apiRequest";
+import PersonalData from "../data/PersonalData";
 
 export async function mainGPTcall(messages, info) {
   try {
     // Retrieve answers from localStorage
     const answers = JSON.parse(localStorage.getItem("answers")) || [];
     const answersText = answers.map(answer => `${answer.id}: ${answer.answer}`).join("\n");
+    const linkedinProfile = localStorage.getItem(PersonalData.questions.find(q => q.id === "liProfile").id) || "";
 
     // Concatenate info with answers
-    const combinedInfo = `${answersText}\n${info}`;
+    const combinedInfo = `${answersText}\n${info}\n${linkedinProfile}`;
 
     const userMessages = messages.map((m) => m.text).join("\n");
     const prompt = mainPrompt(combinedInfo, userMessages);

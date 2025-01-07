@@ -20,8 +20,6 @@ Follow this logic when picking the keyword:
    If you choose this keyword, then the 'content' should be the question to ask the user (and not the response to the message).
 Important rules:
  - When in doubt, it's better to ask the user to provide more info (eg. ASK_PRIVATE_CANDIDATE_INFO) or to double check your answer (REVIEW_DRAFTED_RESPONSE)
- - Never decline to learn more about an opportunity unless you have explicit instructions to do so. For example, if we know that the candidate is interested
-   in a ML role at Google without knowing specifically of a non-interest the another company, then we should ask the candidate if they are interested in the new role too.
  - Be concise and to the point.
 Use this profile_data with information the user to help formulate your answers:
 ${profileData}
