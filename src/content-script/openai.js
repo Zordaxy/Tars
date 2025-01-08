@@ -11,7 +11,17 @@ export async function mainGPTcall(messages, info) {
     const linkedinProfile = localStorage.getItem(PersonalData.questions.find(q => q.id === "liProfile").id) || "";
 
     // Concatenate info with answers
-    const combinedInfo = `${answersText}\n${info}\n${linkedinProfile}`;
+    // const combinedInfo = `${answersText}\n${info}\n${linkedinProfile}`;
+    const combinedInfo = `
+      User preferences:
+      ${answersText}
+
+      Additional private info to help answer recruiter questions:
+      ${info}
+
+      LinkedIn profile (link or textual profile details):
+      ${linkedinProfile}
+    `;
 
     const userMessages = messages.map((m) => m.text).join("\n");
     const prompt = mainPrompt(combinedInfo, userMessages);
@@ -19,6 +29,8 @@ export async function mainGPTcall(messages, info) {
     const cleanedResponse = rawResponse.replace(/```json|```/g, '').trim();
     try {
       const gptMessage = JSON.parse(cleanedResponse);
+      console.log("candidate interest:", gptMessage.candidate_interest);
+      console.log("candidate interest:", gptMessage.candidate_interest_explanation);
       return { keyword: gptMessage.keyword, content: gptMessage.content };
     } catch (parseError) {
       console.error("Failed to parse JSON response:", cleanedResponse);
