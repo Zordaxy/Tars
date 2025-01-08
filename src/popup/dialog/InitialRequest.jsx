@@ -55,6 +55,16 @@ export default function FeedbackRequest() {
           multiline
         />
       ))}
+
+      <CustomTextField
+          id="info"
+          name="info"
+          label="Additional Private Info"
+          fullWidth
+          variant="standard"
+          defaultValue={localStorage.getItem("info") || ""}
+          multiline
+      />
     </>
   );
 }
