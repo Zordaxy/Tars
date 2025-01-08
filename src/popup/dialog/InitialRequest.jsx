@@ -20,52 +20,52 @@ export default function FeedbackRequest() {
   }));
 
   return (
-      <>
-        <DialogContentText>
-          Set up your account
-        </DialogContentText>
+    <>
+      <DialogContentText>
+        Set up your account
+      </DialogContentText>
 
-        {getPersonalInfo().map((question) => (
-            <CustomTextField
-                required
-                id={question.id.toString()}
-                name={question.id.toString()}
-                label={question.text}
-                variant="standard"
-                defaultValue={question.answer}
-                fullWidth
-            />
-        ))}
-
-        {/* Add multiple empty lines */}
-        <br />
-        <br />
-
-        <DialogContentText>
-          Provide additional information
-        </DialogContentText>
-        {getQuestions().map((question) => (
-            <CustomTextField
-                id={question.id.toString()}
-                name={question.id.toString()}
-                label={question.text}
-                defaultValue={question.answer}
-                variant="standard"
-                fullWidth
-                multiline
-            />
-        ))}
-
+      {getPersonalInfo().map((question) => (
         <CustomTextField
-            id="info"
-            name="info"
-            label="Additional Private Info"
-            fullWidth
-            variant="standard"
-            defaultValue={localStorage.getItem("info") || ""}
-            multiline
+          required
+          id={question.id.toString()}
+          name={question.id.toString()}
+          label={question.text}
+          variant="standard"
+          defaultValue={question.answer}
+          fullWidth
         />
-      </>
+      ))}
+
+      {/* Add multiple empty lines */}
+      <br />
+      <br />
+
+      <DialogContentText>
+        Provide additional information
+      </DialogContentText>
+      {getQuestions().map((question) => (
+        <CustomTextField
+          id={question.id.toString()}
+          name={question.id.toString()}
+          label={question.text}
+          defaultValue={question.answer}
+          variant="standard"
+          fullWidth
+          multiline
+        />
+      ))}
+
+      <CustomTextField
+          id="info"
+          name="info"
+          label="Additional Private Info"
+          fullWidth
+          variant="standard"
+          defaultValue={localStorage.getItem("info") || ""}
+          multiline
+      />
+    </>
   );
 }
 
