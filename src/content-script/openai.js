@@ -2,16 +2,25 @@ import mainPrompt from "../prompts/mainPrompt.js";
 import summarizeLearningsPrompt from "../prompts/summarizeLearningsPrompt.js";
 import { apiRequest } from "../utils/apiRequest";
 import PersonalData from "../data/PersonalData";
+import ProfileJsons from "../data/ProfileJsons.js";
 
 export async function mainGPTcall(messages, info) {
   try {
     // Retrieve answers from localStorage
     const answers = JSON.parse(localStorage.getItem("answers")) || [];
     const answersText = answers.map(answer => `${answer.id}: ${answer.answer}`).join("\n");
-    const linkedinProfile = localStorage.getItem(PersonalData.questions.find(q => q.id === "liProfile").id) || "";
+    const liProfileKey = localStorage.getItem(PersonalData.questions.find(q => q.id === "liProfile").id) || "";
+
+    // Check if any key in ProfileJsons is a substring of liProfileKey
+    let linkedinProfile = liProfileKey;
+    for (const key in ProfileJsons) {
+      if (liProfileKey.includes(key)) {
+        linkedinProfile = ProfileJsons[key];
+        break;
+      }
+    }
 
     // Concatenate info with answers
-    // const combinedInfo = `${answersText}\n${info}\n${linkedinProfile}`;
     const combinedInfo = `
       User preferences:
       ${answersText}
