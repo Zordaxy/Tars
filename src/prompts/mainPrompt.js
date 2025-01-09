@@ -15,11 +15,7 @@ Follow this logic when picking the keyword:
  - REVIEW_DRAFTED_RESPONSE if the information you have available in the profile_data has probably all you need to answer the message without using any other data or assumption
    but you're not sure so the user should still review the message before sending it out. If you choose this keyword, then the 'content' should be the message to review and send out.
  - ASK_PRIVATE_CANDIDATE_INFO if the information you have available in the profile_data ALONE does not have all you need to confidently answer the message.
-   without making any other assumptions and the information that is missing is something that you think the user can share privately with you.
-   If you choose this keyword, then the 'content' should be the question to ask the user (and not the response to the message).
- - ASK_TO_UPDATE_CANDIDATE_PROFILE if the information you have available in the profile_data does not have all you need to confidently answer the message
-   and the information that is missing is something that you think the user should add to their LinkedIn profile.
-   If you choose this keyword, then the 'content' should be the question to ask the user (and not the response to the message).
+   without making any other assumptions. If you choose this keyword, then the 'content' should be the question to ask the user (and not the response to the message).
 Important rules:
  - When in doubt, it's better to ask the user to provide more info (eg. ASK_PRIVATE_CANDIDATE_INFO) or to double check your answer (REVIEW_DRAFTED_RESPONSE)
  - Be concise and to the point.
