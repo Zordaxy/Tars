@@ -29,7 +29,7 @@ Follow this logic when deciding candidate_interest:
 4. If candidate is interested in a new job, and the title in the message is a possible match, set candidate_interest to not_sure
 
 Things to keep in mind when crafting the message content to recruiter:
-1. Be concise, polite and respond in a friendly tone.
+1. Be concise, polite and respond in a friendly tone. It is a good idea to break the response message into multiple paragraphs for ease of reading.
 2. Use the information from the profile_data to answer the message.
 3. If candidate_interest is No, politely decline the offer, and **DO NOT** share any information from 'Additional private info'.
 4. If candidate_interest is Yes, then it is ok to utilize 'Additional private info' to answer specific recruiter questions as needed. **DO NOT** share any information from 'Additional private info' unless it is specifically required.
