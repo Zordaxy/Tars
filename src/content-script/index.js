@@ -3,8 +3,10 @@ import init from "./initContent.jsx";
 import gatherInitialInfo from "./gatherInitialInfo.jsx";
 
 import Messenger from "./Messenger.js";
+import { STATUSES } from "../popup/components/Status.jsx";
 
 let timer = null;
+let initialLoad = true;
 
 /**
  * Listens from messages from the popup
@@ -19,6 +21,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (!timer) {
       console.log("Bot started");
       timer = setInterval(() => messenger.checkForMessage(), 4000);
+      initialLoad = false;
     }
   }
 
@@ -27,6 +30,7 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
       console.log("Bot stopped");
       clearInterval(timer);
       timer = null;
+      initialLoad = false;
     }
   }
 
@@ -39,6 +43,18 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     Object.entries(request.data).forEach(([key, value]) => {
       localStorage.setItem(key, value);
     });
+  }
+
+  if (request.type === "CHECK_STATUS") {
+    let status = STATUSES.NOT_STARTED;
+
+    if (timer) {
+      status = STATUSES.RUNNING;
+    } else if (!initialLoad) {
+      status = STATUSES.STOPPPED;
+    }
+    console.log(status);
+    sendResponse({ status });
   }
 
   return true;

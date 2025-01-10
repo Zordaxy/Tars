@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { sendMessageToContentScript } from "../utils/chromeHelper";
-import NavBar from "./NavBar";
-import { Checkbox, FormControlLabel } from "@mui/material";
+import NavBar from "./components/NavBar";
+import { Checkbox, Divider, FormControlLabel } from "@mui/material";
+import styled from "styled-components";
+import Header from "./components/Header";
+import Logo from "./components/Logo";
+import Status, { STATUSES } from "./components/Status";
 
 /**
  * Popup component
@@ -9,16 +13,30 @@ import { Checkbox, FormControlLabel } from "@mui/material";
  * All the main logic happens in content script.
  */
 function App() {
-  const [aiResponse, setAiResponse] = useState("");
   const [loading, setLoading] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [immediateAnswer, setImmediateAnswer] = useState(false);
+  const [status, setStatus] = useState(STATUSES.NOT_STARTED);
 
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
     if (message.type === "AI_RESPONSE") {
       alert(message?.input);
     }
   });
+
+  const Popup = styled.div`
+    width: 200px;
+    padding: 10px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    font-family: "Roboto", sans-serif;
+  `;
+
+  const Wrapper = styled.div`
+    display: flex;
+  `;
 
   useEffect(() => {
     const getImmediateAnswer = async () => {
@@ -32,6 +50,18 @@ function App() {
     getImmediateAnswer();
   }, []);
 
+  useEffect(() => {
+    checkStatus();
+  }, []);
+
+  /**
+   * Checks status of the bot: NOT_STARTED, RUNNING, STOPPED
+   */
+  async function checkStatus() {
+    const response = await sendMessageToContentScript("CHECK_STATUS");
+    setStatus(response?.status);
+  }
+
   /**
    * Starts bot
    */
@@ -41,6 +71,7 @@ function App() {
     try {
       const response = await sendMessageToContentScript("PARSE_CHAT");
       setLoading(false);
+      checkStatus();
     } catch (error) {
       setLoading(false);
     }
@@ -51,6 +82,7 @@ function App() {
    */
   function stopBot() {
     sendMessageToContentScript("STOP_CHAT");
+    checkStatus();
   }
 
   /**
@@ -65,22 +97,27 @@ function App() {
   };
 
   return (
-    <div style={{ width: "300px", padding: "10px", minHeight: "180px" }}>
-      <h2>TARS (Digital Double for Screening)</h2>
-
-      <NavBar
-        startBot={startBot}
-        stopBot={stopBot}
-        setIsModalOpen={setIsModalOpen}
-        loading={loading}
-      />
+    <Popup>
+      <Header />
+      <Divider />
+      <Wrapper>
+        <Logo />
+        <NavBar
+          startBot={startBot}
+          stopBot={stopBot}
+          setIsModalOpen={setIsModalOpen}
+          loading={loading}
+        />
+      </Wrapper>
       <FormControlLabel
         control={
           <Checkbox checked={immediateAnswer} onChange={handleAnswerCheckbox} />
         }
         label="Answer instantly"
       />
-    </div>
+      <Divider />
+      <Status status={status}></Status>
+    </Popup>
   );
 }
 
