@@ -50,6 +50,18 @@ function App() {
     getImmediateAnswer();
   }, []);
 
+  useEffect(() => {
+    checkStatus();
+  }, []);
+
+  /**
+   * Checks status of the bot: NOT_STARTED, RUNNING, STOPPED
+   */
+  async function checkStatus() {
+    const response = await sendMessageToContentScript("CHECK_STATUS");
+    setStatus(response?.status);
+  }
+
   /**
    * Starts bot
    */
@@ -59,7 +71,7 @@ function App() {
     try {
       const response = await sendMessageToContentScript("PARSE_CHAT");
       setLoading(false);
-      setStatus(STATUSES.RUNNING);
+      checkStatus();
     } catch (error) {
       setLoading(false);
     }
@@ -70,7 +82,7 @@ function App() {
    */
   function stopBot() {
     sendMessageToContentScript("STOP_CHAT");
-    setStatus(STATUSES.STOPPPED);
+    checkStatus();
   }
 
   /**
