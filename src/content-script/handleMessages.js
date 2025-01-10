@@ -1,4 +1,3 @@
-import { PROFILE_MEMORY_KEY } from "../utils/constants";
 import showModal from "../utils/showModal";
 import triggerMessage from "../utils/triggerMessage";
 import updateChatInput from "../utils/updateChatInput";
@@ -11,12 +10,10 @@ import { mainGPTcall, summarizeLearnings } from "./openai";
  */
 export default function handleMessages(messages, sendResponse) {
   if (messages) {
-    chrome.storage.local.get(PROFILE_MEMORY_KEY, (result) => {
-      const profileData = result?.[PROFILE_MEMORY_KEY] || "";
-      handleGPTResponse(messages, profileData, sendResponse).catch((error) => {
-        console.error("Error handling GPT response:", error);
-        sendResponse({ error: error.message });
-      });
+    const info = localStorage.getItem("info") || "";
+    handleGPTResponse(messages, info, sendResponse).catch((error) => {
+      console.error("Error handling GPT response:", error);
+      sendResponse({ error: error.message });
     });
   } else {
     console.log("Message is empty");
@@ -27,39 +24,31 @@ export default function handleMessages(messages, sendResponse) {
 /**
  * Main GPT response handling function
  * @param {*} messages
- * @param {*} profileData
+ * @param {*} info
  * @param {*} sendResponse
  */
-async function handleGPTResponse(messages, profileData, sendResponse) {
+async function handleGPTResponse(messages, info, sendResponse) {
   console.log("handleGPTResponse triggered");
 
-  const { keyword, content } = await mainGPTcall(messages, profileData);
-  let title = "Message from your chat bot";
+  const { keyword, content } = await mainGPTcall(messages, info);
+  let title = "Message from TARS";
   if (
-    keyword === "ASK_TO_UPDATE_CANDIDATE_PROFILE" ||
-    keyword === "ASK_PRIVATE_CANDIDATE_INFO"
+      keyword === "ASK_TO_UPDATE_CANDIDATE_PROFILE" ||
+      keyword === "ASK_PRIVATE_CANDIDATE_INFO"
   ) {
     title = "Provide Additional Information";
     showModal(title, content, async (input) => {
       const processedText = await summarizeLearnings(
-        "AI: " + content + "Candidate:" + input
+          "AI: " + content + "Candidate:" + input
       );
-      const updatedProfileData = profileData + "\n" + processedText;
-      await chrome.storage.local.set({
-        [PROFILE_MEMORY_KEY]: updatedProfileData,
-      });
-      ``;
-      handleGPTResponse(messages, updatedProfileData, sendResponse);
+      const updatedInfo = info + ";\n" + processedText;
+      localStorage.setItem("info", updatedInfo);
+      handleGPTResponse(messages, updatedInfo, sendResponse);
     });
-  } else if (
-    keyword === "REVIEW_DRAFTED_RESPONSE" ||
-    keyword === "SEND_RESPONSE"
-  ) {
-    title = "Review the Response";
-    showModal(title, content, (input) => {
-      updateChatInput(input);
-      triggerMessage();
-    });
+  } else {
+    updateChatInput(content);
+    triggerMessage();
+    sendResponse({ keyword, content });
+
   }
-  sendResponse({ keyword, content });
 }
