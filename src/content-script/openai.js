@@ -8,8 +8,13 @@ export async function mainGPTcall(messages, info) {
   try {
     // Retrieve answers from localStorage
     const answers = JSON.parse(localStorage.getItem("answers")) || [];
-    const answersText = answers.map(answer => `${answer.id}: ${answer.answer}`).join("\n");
-    const liProfileKey = localStorage.getItem(PersonalData.questions.find(q => q.id === "liProfile").id) || "";
+    const answersText = answers
+      .map((answer) => `${answer.id}: ${answer.answer}`)
+      .join("\n");
+    const liProfileKey =
+      localStorage.getItem(
+        PersonalData.questions.find((q) => q.id === "liProfile").id
+      ) || "";
 
     // Check if any key in ProfileJsons is a substring of liProfileKey
     let linkedinProfile = liProfileKey;
@@ -32,14 +37,20 @@ export async function mainGPTcall(messages, info) {
       ${linkedinProfile}
     `;
 
-    const userMessages = messages.map((m) => m.text).join("\n");
+    const userMessages = messages.join("\n");
+    console.log("Messages inpot for AI:");
+    console.log(userMessages);
+
     const prompt = mainPrompt(combinedInfo, userMessages);
     const rawResponse = await apiRequest(prompt, "");
-    const cleanedResponse = rawResponse.replace(/```json|```/g, '').trim();
+    const cleanedResponse = rawResponse.replace(/```json|```/g, "").trim();
     try {
       const gptMessage = JSON.parse(cleanedResponse);
       console.log("candidate interest:", gptMessage.candidate_interest);
-      console.log("candidate interest:", gptMessage.candidate_interest_explanation);
+      console.log(
+        "candidate interest:",
+        gptMessage.candidate_interest_explanation
+      );
       return { keyword: gptMessage.keyword, content: gptMessage.content };
     } catch (parseError) {
       console.error("Failed to parse JSON response:", cleanedResponse);
