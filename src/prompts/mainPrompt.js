@@ -49,11 +49,12 @@ Follow this logic when deciding candidate_interest:
 3. In all other cases, set candidate_interest to not_sure.
 
 Things to keep in mind when crafting the message content to recruiter:
-1. Be concise, polite and respond in a friendly tone. It is a good idea to break the response message into multiple paragraphs for ease of reading.
+1. Be concise and respond in a succinct and friendly tone. It is a good idea to break the response message into multiple paragraphs for ease of reading.
 2. Use the information from the profile_data to answer the message.
 3. If candidate_interest is No, politely decline the offer, and **DO NOT** share any information from 'Additional private info'.
 4. If candidate_interest is Yes, then it is ok to utilize 'Additional private info' to answer specific recruiter questions as needed. **DO NOT** share any information from 'Additional private info' unless it is specifically required.
 5. If candidate_interest is not_sure, then it is ok to respond to the recruiter with a question to clarify if the recruiter's job would match one of the titles that the candidate is interested. In this case, **DO NOT** share any information from 'Additional private info' unless it is specifically required. 
+6. Skip the introduction and the signature in the message if that is aligned with the style of the previous message from the recruiter. Eg: Recruiter: "Do you know how to code in python?" Your response in 'content': "Yes, I've been coding in Python for 5 years now." 
 
 The conversation history between the candidate (me) and the recruiter is below. Answer the last recruiter message(s) as needed:
 '''
