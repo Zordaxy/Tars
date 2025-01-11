@@ -15,25 +15,12 @@ export default class Messenger {
   }
 
   checkForMessage() {
-    this.messages = parseLinkedInChat();
-    console.log("Bot pulse. Number of messages: ", this.messages.length);
+    const { messages, recruiterMessageCount } = parseLinkedInChat();
+    this.messages = messages;
+    console.log("Bot pulse. Number of messages: ", recruiterMessageCount);
 
-    // if (this.messages.length > this.currentMessageCount) {
-    //   const newMessage = `There is ${this.messages.length -
-    //     this.currentMessageCount} new message(s). Response to: ${this.messages[
-    //     this.messages.length - 1
-    //   ]?.text.trim()}`;
-    //   this.currentMessageCount = this.messages.length;
-    //
-    //   // Replace with handleMessages that is commented out below
-    //   updateChatInput(newMessage);
-    //   triggerMessage();
-    //
-    //   handleMessages(this.messages, this.sendResponse);
-    // }
-
-    if (this.messages.length > this.currentMessageCount) {
-      this.currentMessageCount = this.messages.length;
+    if (recruiterMessageCount > this.currentMessageCount) {
+      this.currentMessageCount = recruiterMessageCount;
 
       handleMessages(this.messages, (response) => {
         if (response.error) {
