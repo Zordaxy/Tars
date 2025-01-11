@@ -31,6 +31,13 @@ async function handleGPTResponse(messages, info, sendResponse) {
   console.log("handleGPTResponse triggered");
 
   const { keyword, content } = await mainGPTcall(messages, info);
+
+  if (keyword === "NO_RESPONSE_NEEDED") {
+    console.log("No response needed for this message.");
+    sendResponse({ keyword, content: "" });
+    return;
+  }
+
   let title = "Message from TARS";
   if (
       keyword === "ASK_TO_UPDATE_CANDIDATE_PROFILE" ||
@@ -49,6 +56,5 @@ async function handleGPTResponse(messages, info, sendResponse) {
     updateChatInput(content);
     triggerMessage();
     sendResponse({ keyword, content });
-
   }
 }
