@@ -7,7 +7,7 @@ function updateChatInput(message) {
     return;
   }
 
-  const formattedMessage = message.replace(/\n/g, '<br>');
+  const formattedMessage = message.replace(/\n/g, '\n<br>');
   inputElement.innerHTML = `<p>${formattedMessage}</p>`;
 
   // Remove placeholder text
