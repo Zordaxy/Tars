@@ -3,7 +3,7 @@
   "name": "Tars",
   "version": "0.1.0",
   "description": "AI-powered Candidate Screening bot",
-  "permissions": ["activeTab", "storage", "scripting"],
+  "permissions": ["activeTab"],
   "action": {
     "default_icon": "icon.png",
     "default_popup": "popup/index.html",
