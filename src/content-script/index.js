@@ -18,7 +18,6 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   if (request.type === "PARSE_CHAT") {
     init();
     await gatherInitialInfo();
-    debugger;
     await gatherInitialQuestions();
 
     const messenger = new Messenger(sendResponse);
