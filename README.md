@@ -2,7 +2,9 @@
 
 **Tars** is your personal assistant for tackling LinkedIn screening questions with ease! This powerful Chrome extension bot is designed to save time, boost accuracy, and streamline your responses to hiring assistants, ensuring you stand out in the recruitment process.
 
-![Tars extension](public/bot_screenshot.png){ width=50% }
+<div style="text-align: center;">
+  <img src="public/bot_screenshot.png" alt="Screenshot" width="200">
+</div>
 
 ---
 
@@ -24,7 +26,9 @@
 
 ### **2. Provide Your Setup Details**
 
-![Setup questions](public/setup_screenshot.png){ width=50% }
+<div style="text-align: center;">
+  <img src="public/setup_screenshot.png" alt="Screenshot" width="300">
+</div>
 
 Tars will ask you for:
 
@@ -35,7 +39,9 @@ Tars will ask you for:
 
 ### **3. Automated Magic**
 
-![Setup questions](public/chat_screenshot.png){ width=80% }
+<div style="text-align: center;">
+  <img src="public/chat_screenshot.png" alt="Screenshot" width="300">
+</div>
 
 - Tars detects screening questions in the chat and generates **tailored responses** in real-time.
 - If Tars needs more details to provide an accurate response, it will prompt you for clarification.
