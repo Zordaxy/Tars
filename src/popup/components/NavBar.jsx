@@ -8,15 +8,16 @@ function NavBar({ startBot, stopBot, loading }) {
     justify-content: center;
     margin-top: 10px;
     gap: 10px;
+    width: 56%;
   `;
 
   return (
     <Nav>
       <Button variant="contained" onClick={startBot} disabled={loading}>
-        {loading ? "Processing..." : "Start bot"}
+        {loading ? "Processing..." : "Start"}
       </Button>
       <Button variant="contained" onClick={stopBot}>
-        Stop bot
+        Stop
       </Button>
     </Nav>
   );

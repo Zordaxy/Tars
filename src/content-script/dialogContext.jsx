@@ -4,6 +4,7 @@ const DialogContext = createContext();
 
 export const DIALOG_TYPE = {
   INITIAL: "INITIAL",
+  QUESTIONS: "QUESTIONS",
   FEEDBACK: "FEEDBACK",
 };
 

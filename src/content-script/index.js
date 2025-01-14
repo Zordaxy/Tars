@@ -1,7 +1,9 @@
 import initContent from "./initContent.jsx";
 import init from "./initContent.jsx";
-import gatherInitialInfo from "./gatherInitialInfo.jsx";
-
+import {
+  gatherInitialInfo,
+  gatherInitialQuestions,
+} from "./gatherInitialInfo.jsx";
 import Messenger from "./Messenger.js";
 import { STATUSES } from "../popup/components/Status.jsx";
 
@@ -16,6 +18,8 @@ chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
   if (request.type === "PARSE_CHAT") {
     init();
     await gatherInitialInfo();
+    debugger;
+    await gatherInitialQuestions();
 
     const messenger = new Messenger(sendResponse);
     if (!timer) {

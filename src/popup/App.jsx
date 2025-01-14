@@ -113,7 +113,7 @@ function App() {
         control={
           <Checkbox checked={immediateAnswer} onChange={handleAnswerCheckbox} />
         }
-        label="Answer instantly"
+        label="Respond instantly"
       />
       <Divider />
       <Status status={status}></Status>
