@@ -1,12 +1,22 @@
 export default {
   questions: [
     {
-      id: "Are you interested in a new job now?",
-      text: "Are you interested in a new job now?",
+      id: "What kind of work are you open to?",
+      text: "What kind of work are you open to?",
     },
     {
-      id: "If so, what job titles or roles are you interested in?",
-      text: "If so, what job titles or roles are you interested in?",
-    }
+      id: "Where are you at in your search? Do you have an ideal start date?",
+      text: "Where are you at in your search? Do you have an ideal start date?",
+    },
+    {
+      id: "What are your location preferences?",
+      text: "What are your location preferences?",
+    },
+    {
+      id:
+        "Please copy your resume as text so that we’re best equipped to respond. Recruiters can view skills and experiences from your saved resumes when they search and view profiles.",
+      text:
+        "Please copy your resume as text so that we’re best equipped to respond. Recruiters can view skills and experiences from your saved resumes when they search and view profiles.",
+    },
   ],
 };

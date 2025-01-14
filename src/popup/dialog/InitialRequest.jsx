@@ -21,7 +21,7 @@ export default function InitialRequest() {
 
   return (
     <>
-      <DialogContentText>Setup your digital double for screening</DialogContentText>
+      <DialogContentText>Setup your jobseeker assistant</DialogContentText>
 
       {getPersonalInfo().map((question) => (
         <CustomTextField
