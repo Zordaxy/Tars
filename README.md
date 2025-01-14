@@ -1,28 +1,80 @@
 # Tars
 
-LinkedIn candidate screening bot
+**Tars** is your personal assistant for tackling LinkedIn screening questions with ease! This powerful Chrome extension bot is designed to save time, boost accuracy, and streamline your responses to hiring assistants, ensuring you stand out in the recruitment process.
 
-# Contribution
+![Tars extension](public/bot_screenshot.png){ width=50% }
 
-## Prerequisites
+---
 
-### NodeJS
+## ✨ Why Tars?
 
-Make sure you have the latest NodeJS: https://nodejs.org/.
-Note: sometimes "node -v" shows 22 (latest) version. But under the hood it still can be old version. If there is error on build time, check "volta list node". If versions are different - update required, for example with "nvm use 22"
+- ⚡ **Automate the tedious stuff**: Say goodbye to repetitive typing and hello to intelligent, dynamic responses.
+- 🤖 **Smart interactions**: Tars adapts to missing information, asks clarifying questions, and generates professional responses.
+- 🎯 **Tailored to you**: Customize how you respond for specific employers, ensuring you're always putting your best foot forward.
+- 📊 **Clear summaries**: Get a concise overview of the interaction, so you're always in control.
 
-### IDE
+---
 
-I use "VS Code", but it is optional
-Recommended extensions:
+## 🚦 How Does It Work?
 
-- ESLint
-- Prettier
+### **1. Start Tars**
 
-### Start project
+- Open a **LinkedIn messaging thread** with a hiring assistant.
+- Click the **Tars** icon in your Chrome toolbar to activate the bot.
 
-- "git clone"
-- "npm install"
-- "npm run build"
-- In Google Chrome go to "chrome://extensions/" -> click "Load unpacked" -> select "dist" folder in extension
-- In chrome extensions Pin "Tars". Then click on it in top panel
+### **2. Provide Your Setup Details**
+
+![Setup questions](public/setup_screenshot.png){ width=50% }
+
+Tars will ask you for:
+
+- **Your LinkedIn Profile URL**: To gather key candidate information.
+- **API Key**: For secure and personalized data handling.
+- **Initial Questions**: Specify any predefined responses or details you'd like Tars to emphasize.
+- **Additional Information**: Fill in gaps that aren’t on your LinkedIn profile (e.g., preferred job locations, extra skills, or unique experiences).
+
+### **3. Automated Magic**
+
+![Setup questions](public/chat_screenshot.png){ width=80% }
+
+- Tars detects screening questions in the chat and generates **tailored responses** in real-time.
+- If Tars needs more details to provide an accurate response, it will prompt you for clarification.
+
+### **4. Employer-Specific Handling**
+
+- Define employers or job types that need unique responses. Tars ensures your answers are aligned with their expectations.
+
+### **5. Summarization**
+
+- At the end of the interaction, Tars provides a **summary** of all questions and responses, keeping you informed and prepared.
+
+---
+
+## Contribution
+
+#### Node.js
+
+Ensure you have the latest Node.js installed: [Node.js Official Website](https://nodejs.org/).
+
+> **Note:** Sometimes, running `node -v` might show version 22 (latest), but an older version could still be in use under the hood.  
+> If you encounter build errors, verify your Node.js versions with `volta list node`.  
+> If the versions differ, update Node.js as required (e.g., using `nvm use 22`).
+
+#### IDE
+
+While using **VS Code** is optional, it is highly recommended.
+
+**Suggested Extensions:**
+
+- **ESLint**
+- **Prettier**
+
+---
+
+#### Starting the Project
+
+- **git clone**
+- **npm install**
+- **npm run build**
+- In Google Chrome go to **chrome://extensions/** -> click **Load unpacked** -> select **dist** folder in extension
+- In chrome extensions Pin **Tars**. Then click on it in top panel
