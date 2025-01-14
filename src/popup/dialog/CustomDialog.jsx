@@ -7,7 +7,13 @@ import DialogTitle from "@mui/material/DialogTitle";
 import { DIALOG_TYPE, useDialog } from "../../content-script/dialogContext";
 import FeedbackRequest from "./FeedbackRequest";
 import InitialRequest from "./InitialRequest";
-import saveInitialInfo from "../../utils/saveInitialInfo";
+import {
+  saveInitialInfo,
+  saveInitialQuestions,
+} from "../../utils/saveInitialInfo";
+import ArrowCircleRightIcon from "@mui/icons-material/ArrowCircleRight";
+import CancelIcon from "@mui/icons-material/Cancel";
+import InitialQuestions from "./InitialQuestions";
 
 export default function CustomDialog() {
   const { open, dialogTitle, closeDialog, dialogType } = useDialog();
@@ -20,6 +26,8 @@ export default function CustomDialog() {
     if (window.onDialogSubmit) {
       if (dialogType === DIALOG_TYPE.INITIAL) {
         saveInitialInfo(formJson);
+      } else if (dialogType === DIALOG_TYPE.QUESTIONS) {
+        saveInitialQuestions(formJson);
       }
     }
 
@@ -43,11 +51,16 @@ export default function CustomDialog() {
         <DialogTitle>{dialogTitle}</DialogTitle>
         <DialogContent>
           {dialogType === DIALOG_TYPE.INITIAL && <InitialRequest />}
+          {dialogType === DIALOG_TYPE.QUESTIONS && <InitialQuestions />}
           {dialogType === DIALOG_TYPE.FEEDBACK && <FeedbackRequest />}
         </DialogContent>
         <DialogActions>
-          <Button onClick={closeDialog}>Cancel</Button>
-          <Button type="submit">Submit</Button>
+          <Button onClick={closeDialog}>
+            <CancelIcon fontSize="large" />
+          </Button>
+          <Button type="submit">
+            <ArrowCircleRightIcon fontSize="large" />
+          </Button>
         </DialogActions>
       </Dialog>
     </React.Fragment>

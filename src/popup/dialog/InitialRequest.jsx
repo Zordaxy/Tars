@@ -5,7 +5,7 @@ import TextField from "@mui/material/TextField";
 import PersonalData from "../../data/PersonalData";
 import Questions from "../../data/Questions";
 
-export default function FeedbackRequest() {
+export default function InitialRequest() {
   const { dialogHeader } = useDialog();
 
   const CustomTextField = styled(TextField)(({ theme }) => ({
@@ -21,9 +21,7 @@ export default function FeedbackRequest() {
 
   return (
     <>
-      <DialogContentText>
-        Set up your account
-      </DialogContentText>
+      <DialogContentText>Set up your account</DialogContentText>
 
       {getPersonalInfo().map((question) => (
         <CustomTextField
@@ -36,50 +34,8 @@ export default function FeedbackRequest() {
           fullWidth
         />
       ))}
-
-      {/* Add multiple empty lines */}
-      <br />
-      <br />
-
-      <DialogContentText>
-        Provide additional information
-      </DialogContentText>
-      {getQuestions().map((question) => (
-        <CustomTextField
-          id={question.id.toString()}
-          name={question.id.toString()}
-          label={question.text}
-          defaultValue={question.answer}
-          variant="standard"
-          fullWidth
-          multiline
-        />
-      ))}
-
-      <CustomTextField
-          id="info"
-          name="info"
-          label="Additional Private Info"
-          fullWidth
-          variant="standard"
-          defaultValue={localStorage.getItem("info") || ""}
-          multiline
-      />
     </>
   );
-}
-
-function getQuestions() {
-  const storedAnswers = JSON.parse(localStorage.getItem("answers") || "[]");
-
-  return Questions.questions.map((question) => {
-    const stored = storedAnswers.find((answer) => answer.id === question.id);
-    return {
-      id: question.id,
-      text: question.text,
-      answer: stored?.answer || "",
-    };
-  });
 }
 
 function getPersonalInfo() {
