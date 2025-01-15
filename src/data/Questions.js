@@ -11,10 +11,6 @@ export default {
     {
       id: "What are your location preferences?",
       text: "What are your location preferences?",
-    },
-    {
-      id: "Please copy your resume as text here",
-      text: "Please copy your resume as text here",
-    },
+    }
   ],
 };

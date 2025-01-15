@@ -26,8 +26,7 @@ export default function InitialQuestions() {
   return (
     <>
       <DialogContentText>
-        Jobseeker Assistant helps you manage outreach from hirers. You can
-        update these preferences at any time.
+        Jobseeker Assistant automates conversations with recruiters on your behalf, learning about your writing style and job preferences over time.
       </DialogContentText>
 
       {getQuestions().map((question) => (
