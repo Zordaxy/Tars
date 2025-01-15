@@ -5,8 +5,6 @@ export function saveInitialInfo(formJson) {
   PersonalData.questions.forEach((question) => {
     localStorage.setItem(question.id, formJson[question.id]);
   });
-
-  localStorage.setItem("info", formJson.info);
 }
 
 export function saveInitialQuestions(formJson) {
@@ -16,4 +14,5 @@ export function saveInitialQuestions(formJson) {
   }));
 
   localStorage.setItem("answers", JSON.stringify(answers));
+  localStorage.setItem("info", formJson.info);
 }
