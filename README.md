@@ -1,6 +1,6 @@
-# Tars
+# Tars (Job Seeker Assistant)
 
-**Tars** is your personal assistant for tackling LinkedIn screening questions with ease! This powerful Chrome extension bot is designed to save time, boost accuracy, and streamline your responses to hiring assistants, ensuring you stand out in the recruitment process.
+**Tars** is an intelligent career assistant that automates job search tasks, manages professional communications, and proactively helps jobseekers secure their next opportunity while adapting to their unique career goals and preferences.
 
 <div>
   <img src="public/bot_screenshot.png" alt="Screenshot" style="display: block; margin: auto;" width="200">
@@ -14,6 +14,16 @@
 - 🤖 **Smart interactions**: Tars adapts to missing information, asks clarifying questions, and generates professional responses.
 - 🎯 **Tailored to you**: Customize how you respond for specific employers, ensuring you're always putting your best foot forward.
 - 📊 **Clear summaries**: Get a concise overview of the interaction, so you're always in control.
+
+---
+
+## ✨ Vision
+
+Imagine a world where within hours of raising your hand for your next job opportunity, you have 4 interviews scheduled.
+
+Tars is pioneering a new era of professional networking, where every jobseeker's assistant understands their career aspirations and works for them around the clock. We're not just building another automation tool--we're creating an intelligent companion that learns from personal interactions, grows alongside your career, and accurately represents you as a professional. We are bridging the gap between automation and authentic human interaction.
+
+Tars embodies LinkedIn's vision to create economic opportunity for people everywhere. Tars allows our members to delegate the administrative tasks that Jobseekers don't like doing (managing their inbox, replying to the same application questions) and allow them to focus on finding the right roles while connecting to hirers. As the professional world evolves, Tars will expand to support every aspect of the career journey–from searching and applying for jobs, to connecting with other professionals–while always learning and adapting to better serve our members.
 
 ---
 
