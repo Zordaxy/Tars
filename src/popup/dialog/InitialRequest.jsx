@@ -25,7 +25,7 @@ export default function InitialRequest() {
 
   return (
     <>
-      <DialogContentText>Setup your jobseeker assistant</DialogContentText>
+      <DialogContentText>Setup your assistant</DialogContentText>
 
       {getPersonalInfo().map((question) => (
         <CustomTextField

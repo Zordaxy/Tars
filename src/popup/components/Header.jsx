@@ -18,7 +18,7 @@ export default function Header() {
 
   return (
     <PopupSection>
-      <Subheader>Job Seeker Assistant</Subheader>
+      <Subheader>Jobseeker Assistant</Subheader>
     </PopupSection>
   );
 }
