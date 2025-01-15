@@ -28,9 +28,6 @@ export default function InitialQuestions() {
         any time.
       </DialogContentText>
 
-      <DialogContentText>
-        Is there anything else you’d like to share?
-      </DialogContentText>
       {getQuestions().map((question) => (
         <CustomTextField
           id={question.id.toString()}
@@ -46,7 +43,7 @@ export default function InitialQuestions() {
       <CustomTextField
         id="info"
         name="info"
-        label="Additional Private Info"
+        label="Is there anything else you’d like to share?"
         fullWidth
         variant="standard"
         defaultValue={localStorage.getItem("info") || ""}
