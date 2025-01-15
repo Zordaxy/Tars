@@ -2,9 +2,9 @@ import styled from "styled-components";
 
 export default function Logo() {
   const Logo = styled.img`
-    width: 30%;
+    width: 60%;
     height: auto;
-    margin: 0 10px;
+    margin: 10px;
     object-fit: cover; /* Ensures the image fits the container without distortion */
   `;
 
