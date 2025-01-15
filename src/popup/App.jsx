@@ -7,6 +7,10 @@ import Header from "./components/Header";
 import Logo from "./components/Logo";
 import Status, { STATUSES } from "./components/Status";
 
+export const PopupSection = styled.div`
+  padding: 0 20px;
+`;
+
 /**
  * Popup component
  * Starts/spops bot and defines basic settings.
@@ -25,17 +29,25 @@ function App() {
   });
 
   const Popup = styled.div`
-    width: 200px;
-    padding: 10px;
+    width: 250px;
     min-height: 180px;
     display: flex;
     flex-direction: column;
     border-radius: 5px;
     font-family: "Roboto", sans-serif;
+    padding: 2px;
+  `;
+
+  const StyledCheckbox = styled(PopupSection)`
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.6);
   `;
 
   const Wrapper = styled.div`
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 10px;
   `;
 
   useEffect(() => {
@@ -100,23 +112,31 @@ function App() {
     <Popup>
       <Header />
       <Divider />
-      <Wrapper>
-        <Logo />
-        <NavBar
-          startBot={startBot}
-          stopBot={stopBot}
-          setIsModalOpen={setIsModalOpen}
-          loading={loading}
-        />
-      </Wrapper>
-      <FormControlLabel
-        control={
-          <Checkbox checked={immediateAnswer} onChange={handleAnswerCheckbox} />
-        }
-        label="Respond instantly"
-      />
+      <PopupSection>
+        <Wrapper>
+          <Logo />
+          <NavBar
+            startBot={startBot}
+            stopBot={stopBot}
+            setIsModalOpen={setIsModalOpen}
+            loading={loading}
+            status={status}
+          />
+        </Wrapper>
+      </PopupSection>
       <Divider />
-      <Status status={status}></Status>
+      <StyledCheckbox>
+        <FormControlLabel
+          control={
+            <Checkbox
+              checked={immediateAnswer}
+              onChange={handleAnswerCheckbox}
+            />
+          }
+          label="Respond instantly"
+        />
+      </StyledCheckbox>
+      {/* <Status status={status}></Status> */}
     </Popup>
   );
 }
