@@ -22,7 +22,7 @@ export default function InitialQuestions() {
   return (
     <>
       <DialogContentText>
-        Jobseeker Agent helps for you to manage opportunities from hirers.
+        Jobseeker Assistant helps for you to manage opportunities from hirers.
         First, let’s make sure we’re on the same page, so I can respond
         accurately on your behalf. You can update these preferences with me at
         any time.

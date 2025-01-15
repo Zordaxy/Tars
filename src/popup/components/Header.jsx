@@ -15,7 +15,7 @@ export default function Header() {
   return (
     <>
       <H1>TARS</H1>
-      <Subheader>(Jobseeker Agent)</Subheader>
+      <Subheader>(Jobseeker Assistant)</Subheader>
     </>
   );
 }
