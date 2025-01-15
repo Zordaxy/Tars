@@ -13,10 +13,8 @@ export default {
       text: "What are your location preferences?",
     },
     {
-      id:
-        "Please copy your resume as text so that we’re best equipped to respond. Recruiters can view skills and experiences from your saved resumes when they search and view profiles.",
-      text:
-        "Please copy your resume as text so that we’re best equipped to respond. Recruiters can view skills and experiences from your saved resumes when they search and view profiles.",
+      id: "Please copy your resume as text here",
+      text: "Please copy your resume as text here",
     },
   ],
 };

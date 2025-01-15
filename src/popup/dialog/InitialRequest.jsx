@@ -17,6 +17,10 @@ export default function InitialRequest() {
       boxShadow: "none !important",
       outlineWidth: "0 !important",
     },
+    "& label": {
+      fontSize: "16px !important",
+      marginTop: "7px !important",
+    },
   }));
 
   return (

@@ -15,6 +15,9 @@ export default function FeedbackRequest() {
       boxShadow: "none !important",
       outlineWidth: "0 !important",
     },
+    "& label": {
+      fontSize: "18px !important",
+    },
   }));
 
   return (
