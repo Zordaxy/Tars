@@ -17,12 +17,17 @@ export default function InitialQuestions() {
       boxShadow: "none !important",
       outlineWidth: "0 !important",
     },
+    "& label": {
+      fontSize: "16px !important",
+      marginTop: "7px !important",
+    },
   }));
 
   return (
     <>
       <DialogContentText>
-        Jobseeker Assistant helps you manage outreach from hirers. You can update these preferences at any time.
+        Jobseeker Assistant helps you manage outreach from hirers. You can
+        update these preferences at any time.
       </DialogContentText>
 
       {getQuestions().map((question) => (
