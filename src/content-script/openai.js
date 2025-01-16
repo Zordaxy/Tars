@@ -51,6 +51,9 @@ export async function mainGPTcall(messages, info) {
         "candidate interest:",
         gptMessage.candidate_interest_explanation
       );
+      if (gptMessage.keyword === "SEND_RESPONSE" || gptMessage.keyword === "REVIEW_DRAFTED_RESPONSE") {
+        gptMessage.content += `\nSent by ${gptMessage.candidate_name}'s Assistant`;
+      }
       return { keyword: gptMessage.keyword, content: gptMessage.content };
     } catch (parseError) {
       console.error("Failed to parse JSON response:", cleanedResponse);
