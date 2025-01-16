@@ -52,7 +52,7 @@ export async function mainGPTcall(messages, info) {
         gptMessage.candidate_interest_explanation
       );
       if (gptMessage.keyword === "SEND_RESPONSE" || gptMessage.keyword === "REVIEW_DRAFTED_RESPONSE") {
-        gptMessage.content += `\nSent by ${gptMessage.candidate_name}'s Assistant`;
+        gptMessage.content += `\n- Sent by ${gptMessage.candidate_name}'s Assistant`;
       }
       return { keyword: gptMessage.keyword, content: gptMessage.content };
     } catch (parseError) {
