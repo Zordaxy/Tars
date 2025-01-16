@@ -29,7 +29,6 @@ export default function FeedbackRequest() {
         margin="dense"
         id="info"
         name="info"
-        label="Additional Info"
         fullWidth
         variant="standard"
         multiline
