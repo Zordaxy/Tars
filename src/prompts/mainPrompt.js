@@ -10,6 +10,7 @@ IMPORTANT: You must ALWAYS respond in a valid JSON format without any additional
   "title_interest_explanation": "Explain the reasoning for the chosen title_interest",
   "candidate_interest": "Use one of Yes, No, or not_sure to say whether the candidate is interested in this company and title",
   "candidate_interest_explanation": "Explain the reasoning for the chosen candidate_interest", 
+  "candidate_name": "First name of the candidate",
   "content": "Your actual message here"
 }
 
